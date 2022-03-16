@@ -18,6 +18,7 @@
   width: 50%;
   height: 20%;
   border-radius: 0.5rem;
+  padding: 0 0.5rem;
 }
 
 @media (max-width: 850px) {
@@ -30,6 +31,9 @@
   font-size: 1rem;
   height: 2rem;
 }
-label {
+.edit-form label {
   font-weight: bold;
+}
+.edit-form button {
+  height: 2rem;
 }

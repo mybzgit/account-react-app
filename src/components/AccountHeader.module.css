@@ -6,7 +6,7 @@
   align-items: center;
   column-gap: 0.5rem;
 }
-button {
+.header button {
   height: 2rem;
 }
 .title {

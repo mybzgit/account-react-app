@@ -5,9 +5,9 @@
   font-size: 1.5rem;
   margin: 1rem 0;
 }
-button {
+.bottom-bar button {
   padding: 0 0.5rem;
-  height: 2rem;
+  height: 2.5rem;
 }
 .search {
   width: 70%;
