@@ -1,0 +1,35 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(1, 1, 1, 0.7);
+}
+.edit-form {
+  position: relative;
+  top: 20%;
+  left: 25%;
+  background-color: white;
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 20%;
+  border-radius: 0.5rem;
+}
+
+@media (max-width: 850px) {
+  .edit-form {
+    left: 0;
+    width: 100%;
+  }
+}
+.info {
+  font-size: 1rem;
+  height: 2rem;
+}
+label {
+  font-weight: bold;
+}

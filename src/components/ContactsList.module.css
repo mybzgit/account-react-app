@@ -1,4 +1,7 @@
 .contact-list {
     overflow-y: auto;
-    height: 70vh;
+    height: 60vh;
+    border: 1px solid lightgray;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
 }
