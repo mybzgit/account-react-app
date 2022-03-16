@@ -1,0 +1,25 @@
+.contact {
+    border-radius: 0.5rem;
+    border: 1px solid lightgray;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    display: flex;
+    column-gap: 0.5rem;
+    align-items: center;
+}
+.info {
+    width: 100%;
+    font-weight: 600;
+}
+.contact button {
+    padding: 0 1rem;
+    height: 2rem;
+}
+.contact button.delete {
+    background-color: lightcoral;
+}
+.contact button.delete:hover {
+    background-color: white;
+    border: 2px solid lightcoral;
+    color: lightcoral;
+}

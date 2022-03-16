@@ -1,0 +1,12 @@
+.header {
+    border-bottom: 2px solid lightgray;
+    padding: 1rem;
+    font-size: 1rem;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    column-gap: 0.5rem;
+}
+button.signout {
+    height: 2rem;
+}
