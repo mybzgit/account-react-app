@@ -1,5 +1,5 @@
 import React from "react";
-import "./Account.css";
+import styles from "./Account.module.css";
 import AccountHeader from "../components/AccountHeader";
 import ContactsList from "../components/ContactsList";
 
@@ -7,10 +7,10 @@ const Account: React.FC = () => {
   return (
     <div>
       <AccountHeader />
-      <div className="main-container">
-        <input className="search" placeholder="Type to search..." />
+      <div className={styles['main-container']}>
+        <input className={styles.search} placeholder="Type to search..." />
         <ContactsList />
-        <div className="bottom-bar">
+        <div className={styles['bottom-bar']}>
           <button type="button">Add contact</button>
         </div>
       </div>

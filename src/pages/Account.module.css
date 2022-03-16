@@ -1,0 +1,29 @@
+.bottom-bar {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+button {
+  padding: 0 0.5rem;
+  height: 2rem;
+}
+.search {
+  width: 70%;
+  padding: 1rem;
+  height: 1rem;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.main-container {
+  width: 50%;
+  margin: auto;
+}
+
+@media (max-width: 600px) {
+  .main-container {
+    width: 90%;
+  }
+}
