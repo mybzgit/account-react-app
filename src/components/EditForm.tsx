@@ -7,16 +7,16 @@ const EditForm: React.FC = () => {
   const info = params.contactId === "newcontact" ? "" : params.contactId;
   const navigate = useNavigate();
 
-  const onChange: ChangeEventHandler<HTMLInputElement> = (
+  const onChangeHandler: ChangeEventHandler<HTMLInputElement> = (
     e: ChangeEvent<HTMLInputElement>
   ) => {
     //setInfo(e.target.value);
   };
 
-  const onSave = () => {
+  const onSaveHandler = () => {
     navigate("/mycontacts");
   };
-  const onCancel = () => {
+  const onCancelHandler = () => {
     navigate("/mycontacts");
   };
 
@@ -30,12 +30,12 @@ const EditForm: React.FC = () => {
           className={styles.info}
           id="contactInfo"
           value={info}
-          onChange={(e) => onChange(e)}
+          onChange={(e) => onChangeHandler(e)}
         ></input>
-        <button type="button" onClick={() => onSave()}>
+        <button type="button" onClick={() => onSaveHandler()}>
           Save
         </button>
-        <button type="button" onClick={() => onCancel()}>
+        <button type="button" onClick={() => onCancelHandler()}>
           Cancel
         </button>
       </div>

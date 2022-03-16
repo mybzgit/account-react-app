@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styles from "./ContactsList.module.css";
 import Contact from "./Contact";
-import { useSearchParams } from "react-router-dom";
 
 type ContactListProps = {
   filter?: string;

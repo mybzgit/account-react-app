@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
+import React, { ChangeEvent, ChangeEventHandler, EventHandler, MouseEventHandler, useState } from "react";
 import styles from "./Account.module.css";
 import AccountHeader from "../components/AccountHeader";
 import ContactsList from "../components/ContactsList";
@@ -7,11 +7,11 @@ import EditForm from "../components/EditForm";
 
 const Account: React.FC = () => {
   const navigate = useNavigate();
-  const onAddNewContact = () => {    
+  const onAddNewContactHandler = () => {    
     navigate("/mycontacts/newcontact");
   }
 
-  const onSearch: ChangeEventHandler<HTMLInputElement> = (
+  const onSearchHandler: ChangeEventHandler<HTMLInputElement> = (
     e: ChangeEvent<HTMLInputElement>
   ) => {
     setTimeout(() => {
@@ -25,10 +25,10 @@ const Account: React.FC = () => {
     <div>
       <AccountHeader />
       <div className={styles["main-container"]}>
-        <input className={styles.search} placeholder="Type to search..." onChange={(e) => onSearch(e)} />
+        <input className={styles.search} placeholder="Type to search..." onChange={(e) => onSearchHandler(e)} />
         <ContactsList filter={filter} />
         <div className={styles["bottom-bar"]}>
-          <button type="button" onClick={() => onAddNewContact()}>Add contact</button>
+          <button type="button" onClick={() => onAddNewContactHandler()}>Add contact</button>
         </div>
       </div>
       <Routes>
