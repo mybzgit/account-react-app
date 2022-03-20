@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { ChangeEvent, FormEvent, ChangeEventHandler, FormEventHandler, useState } from "react";
+import React, { ChangeEvent, FormEvent, ChangeEventHandler, FormEventHandler, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 
@@ -13,9 +13,19 @@ const Login: React.FC = () => {
 
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [bothFilled, setBothFilled] = useState(false);
   const url: string = `https://my-json-server.typicode.com/mybzgit/test-json-server/users?name${username}&password=${password}`;
 
   const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setBothFilled(username.trim().length !== 0 && password.trim().length !== 0);
+    }, 500);
+    return () => {
+      clearTimeout(timeout);
+    }
+  }, [username, password]);
 
   const navigate = useNavigate();
 
@@ -28,8 +38,6 @@ const Login: React.FC = () => {
 
   const onSignInHandler: FormEventHandler<HTMLFormElement> = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (username.trim().length === 0 || password.trim().length === 0)
-      return;
     setVisible(false);
     axios.get<User[]>(url).then((response) => {
       if (response.data.length) {
@@ -55,7 +63,7 @@ const Login: React.FC = () => {
           type="password" value={password}
           onChange={(e) => passwordChangeHandler(e)}
         ></input>
-        <button className={styles.signin} type="submit">
+        <button className={styles.signin} type="submit" disabled={!bothFilled}>
           Sign in
         </button>
       </form>

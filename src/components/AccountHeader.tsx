@@ -9,13 +9,13 @@ const AccountHeader: React.FC = () => {
     navigate("/");
   };
   return (
-    <div className={styles.header}>
+    <header className={styles.header}>
       <div className={styles.title}>My Contacts</div>
       <div>Hello, 'username'!</div>
       <button type="button" onClick={() => onSignOutHandler()}>
         Sign out
       </button>
-    </div>
+    </header>
   );
 };
 
