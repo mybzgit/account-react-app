@@ -1,9 +1,9 @@
-import React, { ChangeEvent, ChangeEventHandler, EventHandler, MouseEventHandler, useState } from "react";
+import React, { ChangeEvent, ChangeEventHandler, EventHandler, Fragment, MouseEventHandler, useState } from "react";
 import styles from "./Account.module.css";
 import AccountHeader from "../components/AccountHeader";
 import ContactsList from "../components/ContactsList";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import EditForm from "../components/EditForm";
+import EditForm from "../components/PopupEditForm";
 
 const Account: React.FC = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const Account: React.FC = () => {
   const [filter, setFilter] = useState("");
 
   return (
-    <div>
+    <Fragment>
       <AccountHeader />
       <div className={styles["main-container"]}>
         <input className={styles.search} placeholder="Type to search..." onChange={(e) => onSearchHandler(e)} />
@@ -35,7 +35,7 @@ const Account: React.FC = () => {
         <Route path="/mycontacts/newcontact" element={<EditForm />} />
         <Route path=":contactId" element={<EditForm />} />
       </Routes>
-    </div>
+    </Fragment>
   );
 };
 

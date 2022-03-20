@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
+import React, { ChangeEvent, FormEvent, ChangeEventHandler, FormEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 
@@ -26,7 +26,10 @@ const Login: React.FC = () => {
     e: ChangeEvent<HTMLInputElement>
   ) => setPassword(e.target.value);
 
-  const onSignInHandler = () => {
+  const onSignInHandler: FormEventHandler<HTMLFormElement> = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (username.trim().length === 0 || password.trim().length === 0)
+      return;
     setVisible(false);
     axios.get<User[]>(url).then((response) => {
       if (response.data.length) {
@@ -43,17 +46,19 @@ const Login: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.title}>Welcome!</div>
       <div className={styles.tip}>Please login with your credentials:</div>
-      <label htmlFor="username">Name:</label>
-      <input id="username" onChange={(e) => userNameChangeHandler(e)}></input>
-      <label htmlFor="password">Password:</label>
-      <input
-        id="password"
-        type="password"
-        onChange={(e) => passwordChangeHandler(e)}
-      ></input>
-      <button className={styles.signin} type="button" onClick={() => onSignInHandler()}>
-        Sign in
-      </button>
+      <form onSubmit={(e) => onSignInHandler(e)}>
+        <label htmlFor="username">Name:</label>
+        <input id="username" value={username} onChange={(e) => userNameChangeHandler(e)}></input>
+        <label htmlFor="password">Password:</label>
+        <input
+          id="password"
+          type="password" value={password}
+          onChange={(e) => passwordChangeHandler(e)}
+        ></input>
+        <button className={styles.signin} type="submit">
+          Sign in
+        </button>
+      </form>
       {visible && (
         <div className={styles.notfound}>
           Name or password are incorrect. Try again.

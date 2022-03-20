@@ -10,7 +10,7 @@ const AccountHeader: React.FC = () => {
   };
   return (
     <div className={styles.header}>
-      <div className={styles.title}>My Contacts List</div>
+      <div className={styles.title}>My Contacts</div>
       <div>Hello, 'username'!</div>
       <button type="button" onClick={() => onSignOutHandler()}>
         Sign out

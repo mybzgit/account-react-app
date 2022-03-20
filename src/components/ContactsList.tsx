@@ -9,7 +9,7 @@ type ContactListProps = {
 const ContactsList: React.FC<ContactListProps> = ({
   filter = "",
 }: ContactListProps) => {
- 
+
   const [contacts, setContacts] = useState([
     "User1",
     "User2",
@@ -19,13 +19,14 @@ const ContactsList: React.FC<ContactListProps> = ({
     "User7",
   ]);
 
+  const filteredContacts = contacts.filter(c => c.indexOf(filter) !== -1);
+
   return (
     <div className={styles["contact-list"]}>
-      {contacts
-        .filter((c) => c.indexOf(filter) !== -1)
-        .map((c: string) => {
-          return <Contact key={c} info={c} />;
-        })}
+      {filteredContacts.length === 0 && <p>No contacts found</p>}
+      {filteredContacts.length > 0 &&
+        filteredContacts.map((c: string) => <Contact key={c} info={c} />)
+      }
     </div>
   );
 };
