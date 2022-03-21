@@ -16,7 +16,6 @@ const ContactsList: React.FC<ContactListProps> = ({
 
 
   const contacts: Contact[] = useSelector<State, Contact[]>(state => state.contacts ? state.contacts : []);
-  console.log(contacts);
 
   const filteredContacts = contacts.filter(c => (c.name.indexOf(filter) !== -1 || c.phone.indexOf(filter) !== -1));
 
@@ -24,7 +23,7 @@ const ContactsList: React.FC<ContactListProps> = ({
     <div className={styles["contact-list"]}>
       {filteredContacts.length === 0 && <p>No contacts found</p>}
       {filteredContacts.length > 0 &&
-        filteredContacts.map((c: Contact) => <ContactItem key={c.contactId} info={c} onContactEditHandler={onEditContactHandler} />)
+        filteredContacts.map((c: Contact) => <ContactItem key={c.contactId} contactInfo={c} onContactEditHandler={onEditContactHandler} />)
       }
     </div>
   );

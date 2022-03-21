@@ -1,7 +1,6 @@
-import axios from "axios";
 import { createStore, Reducer, Store } from "redux";
 
-import { Contact, State, Action } from './types';
+import { State, Action } from './types';
 
 const initialState: State = {
     currentUserId: 0,
@@ -11,7 +10,6 @@ const initialState: State = {
 
 const reducer: Reducer<State, Action> = (state: State = initialState, action: Action) => {
     if (action.type === 'SET_CURRENT_USER') {
-        console.log(action)
         return {
             currentUserId: action.user!.id,
             currentUserName: action.user!.name,

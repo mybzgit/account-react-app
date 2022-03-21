@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Action, Contact, User } from '../helpers/types';
 import { useDispatch } from "react-redux";
 
+const mainUrl = 'https://my-json-server.typicode.com/mybzgit/test-json-server/';
 
 const Login: React.FC = () => {
 
@@ -35,19 +36,18 @@ const Login: React.FC = () => {
   ) => setPassword(e.target.value);
 
   const getContactsByUserId = async (id: string = "") => {
-    const url: string = `https://my-json-server.typicode.com/mybzgit/test-json-server/contacts?userId=${id}`;
+    const url: string = `${mainUrl}contacts?userId=${id}`;
 
     let contacts: Contact[] = [];
     let response = await axios.get<Contact[]>(url);
     if (response.data.length) {
       contacts = [...response.data];
-      console.log(contacts)
     }
     return contacts;
   }
 
   const getExistedUser = async () => {
-    const url: string = `https://my-json-server.typicode.com/mybzgit/test-json-server/users?name${username}&password=${password}`;
+    const url: string = `${mainUrl}users?name${username}&password=${password}`;
 
     let users = await axios.get<User[]>(url);
     if (users.data.length) {
@@ -92,9 +92,13 @@ const Login: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.title}>Welcome!</div>
       <div className={styles.tip}>Please login with your credentials:</div>
+
       <form onSubmit={(e) => onSignInHandler(e)}>
         <label htmlFor="username">Name:</label>
-        <input id="username" value={username} onChange={(e) => userNameChangeHandler(e)}></input>
+        <input
+          id="username"
+          value={username}
+          onChange={(e) => userNameChangeHandler(e)}></input>
         <label htmlFor="password">Password:</label>
         <input
           id="password"
@@ -105,6 +109,7 @@ const Login: React.FC = () => {
           Sign in
         </button>
       </form>
+      
       {notFound && (
         <div className={styles.notfound}>
           Name or password are incorrect. Try again.

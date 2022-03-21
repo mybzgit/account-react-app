@@ -4,11 +4,11 @@ import { Contact } from "../helpers/types";
 import styles from "./ContactItem.module.css";
 
 type ContactProps = {
-  info: Contact;
+  contactInfo: Contact;
   onContactEditHandler(info: Contact): void;
 };
 
-const ContactItem: React.FC<ContactProps> = ({ info, onContactEditHandler }: ContactProps) => {
+const ContactItem: React.FC<ContactProps> = ({ contactInfo, onContactEditHandler }: ContactProps) => {
 
   const dispatch = useDispatch();
 
@@ -22,12 +22,12 @@ const ContactItem: React.FC<ContactProps> = ({ info, onContactEditHandler }: Con
 
   return (
     <div className={styles.contact}>
-      <div className={styles.info}>{info?.name}</div>
-      <div className={styles.info}>{info?.phone}</div>
-      <button type="button" onClick={() => onContactEditHandler(info)}>
+      <div className={styles.info}>{contactInfo?.name}</div>
+      <div className={styles.info}>{contactInfo?.phone}</div>
+      <button type="button" onClick={() => onContactEditHandler(contactInfo)}>
         Edit
       </button>
-      <button type="button" className={styles.delete} onClick={() => onDeleteHanlder(info)}>
+      <button type="button" className={styles.delete} onClick={() => onDeleteHanlder(contactInfo)}>
         Delete
       </button>
     </div>

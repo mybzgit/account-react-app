@@ -14,7 +14,7 @@ export type Contact = {
 export type State = {
     currentUserId: number | undefined;
     currentUserName: string | undefined;
-    contacts: Contact[]  | undefined;
+    contacts: Contact[] | undefined;
 };
 
 export type Action = {

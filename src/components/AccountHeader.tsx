@@ -5,6 +5,7 @@ import { Action, State } from "../helpers/types";
 
 const AccountHeader: React.FC = () => {
   const dispatch = useDispatch();
+  
   const onSignOutHandler = () => {
     const action: Action = { type: 'SET_CURRENT_USER', user: {
       id: 0,
