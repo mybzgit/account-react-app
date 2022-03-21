@@ -3,10 +3,13 @@ button {
   background-color: #008F54;
   color: white;
 }
-button:hover:not[disabled] {
+button:hover {
   background-color: white;
   border: 2px solid #008F54;
   color:#008F54;
+}
+button[disabled]:hover {
+  color:white;
 }
 input {
   border: 1px solid gray;

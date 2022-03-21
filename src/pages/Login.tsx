@@ -1,22 +1,21 @@
-import axios from "axios";
-import React, { ChangeEvent, FormEvent, ChangeEventHandler, FormEventHandler, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import styles from "./Login.module.css";
 
-type User = {
-  userid: string;
-  name: string;
-  password: string;
-};
+import React, { ChangeEvent, FormEvent, ChangeEventHandler, FormEventHandler, useState, useEffect } from "react";
+import styles from "./Login.module.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { Action, Contact, User } from '../helpers/types';
+import { useDispatch } from "react-redux";
+
 
 const Login: React.FC = () => {
 
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [bothFilled, setBothFilled] = useState(false);
-  const url: string = `https://my-json-server.typicode.com/mybzgit/test-json-server/users?name${username}&password=${password}`;
+  const [notFound, setNotFound] = useState(false);
 
-  const [visible, setVisible] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -27,7 +26,6 @@ const Login: React.FC = () => {
     }
   }, [username, password]);
 
-  const navigate = useNavigate();
 
   const userNameChangeHandler: ChangeEventHandler<HTMLInputElement> = (
     e: ChangeEvent<HTMLInputElement>
@@ -36,18 +34,58 @@ const Login: React.FC = () => {
     e: ChangeEvent<HTMLInputElement>
   ) => setPassword(e.target.value);
 
-  const onSignInHandler: FormEventHandler<HTMLFormElement> = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setVisible(false);
-    axios.get<User[]>(url).then((response) => {
-      if (response.data.length) {
-        navigate("/mycontacts", { replace: true });
-      } else {
-        setUserName("");
-        setPassword("");
-        setVisible(true);
+  const getContactsByUserId = async (id: string = "") => {
+    const url: string = `https://my-json-server.typicode.com/mybzgit/test-json-server/contacts?userId=${id}`;
+
+    let contacts: Contact[] = [];
+    let response = await axios.get<Contact[]>(url);
+    if (response.data.length) {
+      contacts = [...response.data];
+      console.log(contacts)
+    }
+    return contacts;
+  }
+
+  const getExistedUser = async () => {
+    const url: string = `https://my-json-server.typicode.com/mybzgit/test-json-server/users?name${username}&password=${password}`;
+
+    let users = await axios.get<User[]>(url);
+    if (users.data.length) {
+      return {
+        id: users.data[0].userId,
+        name: users.data[0].name
       }
-    });
+    }
+    else
+      return {
+        id: 0,
+        name: ""
+      };
+  }
+
+  const onSignInHandler: FormEventHandler<HTMLFormElement> = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setNotFound(false);
+
+    let contacts: Contact[] = [];
+    let { id, name } = await getExistedUser();
+    if (id || name) {
+      contacts = await getContactsByUserId(id.toString());
+      const action: Action = {
+        type: 'SET_CURRENT_USER', user: {
+          id: id,
+          name: name,
+          contacts: contacts
+        }
+      };
+      dispatch(action);
+      navigate("/mycontacts", { replace: true });
+    }
+    else {
+      setUserName("");
+      setPassword("");
+      setNotFound(true);
+    }
   };
 
   return (
@@ -67,7 +105,7 @@ const Login: React.FC = () => {
           Sign in
         </button>
       </form>
-      {visible && (
+      {notFound && (
         <div className={styles.notfound}>
           Name or password are incorrect. Try again.
         </div>

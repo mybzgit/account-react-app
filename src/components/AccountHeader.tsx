@@ -1,17 +1,23 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import styles from "./AccountHeader.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import { Action, State } from "../helpers/types";
 
 const AccountHeader: React.FC = () => {
-
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const onSignOutHandler = () => {
-    navigate("/");
+    const action: Action = { type: 'SET_CURRENT_USER', user: {
+      id: 0,
+      name: "",
+      contacts: []
+    }};
+    dispatch(action);
   };
+  const userName: string | undefined = useSelector<State, string | undefined>(state => state?.currentUserName);
   return (
     <header className={styles.header}>
       <div className={styles.title}>My Contacts</div>
-      <div>Hello, 'username'!</div>
+      <div>Hello, {userName}!</div>
       <button type="button" onClick={() => onSignOutHandler()}>
         Sign out
       </button>

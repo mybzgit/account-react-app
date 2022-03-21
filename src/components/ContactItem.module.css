@@ -11,6 +11,9 @@
   width: 100%;
   font-weight: 600;
 }
+.phone {
+  color: gray;
+}
 .contact button {
   padding: 0 1rem;
   height: 2rem;

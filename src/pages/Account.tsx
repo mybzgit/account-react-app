@@ -1,15 +1,30 @@
-import React, { ChangeEvent, ChangeEventHandler, EventHandler, Fragment, MouseEventHandler, useEffect, useState } from "react";
+import React, { ChangeEvent, ChangeEventHandler, Fragment, useEffect, useState } from "react";
 import styles from "./Account.module.css";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { State, Contact } from "../helpers/types";
 import AccountHeader from "../components/AccountHeader";
 import ContactsList from "../components/ContactsList";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import EditForm from "../components/PopupEditForm";
-import { time } from "console";
+import PopupEditForm from "../components/PopupEditForm";
 
 const Account: React.FC = () => {
   const navigate = useNavigate();
+
+  const [editedContact, setEditedContact] = useState({ contactId: 0, name: "", phone: "", userId: 0 });
+  const [editFormVisible, setEditFormVisible] = useState(false);
+  const [filter, setFilter] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+
   const onAddNewContactHandler = () => {
-    navigate("/mycontacts/newcontact");
+    setEditedContact({ contactId: 0, name: "", phone: "", userId: 0 });
+    setEditFormVisible(true);
+  }
+  const onContactEditHandler = (contact: Contact) => {
+    setEditedContact({ ...contact });
+    setEditFormVisible(true);
+  }
+  const onEditFormCloseHandler = () => {
+    setEditFormVisible(false);
   }
 
   const onSearchHandler: ChangeEventHandler<HTMLInputElement> = (
@@ -19,9 +34,13 @@ const Account: React.FC = () => {
   };
 
 
-  const [filter, setFilter] = useState("");
-  const [searchValue, setSearchValue] = useState("");
+  const userName: string | undefined = useSelector<State, string | undefined>(state => state?.currentUserName);
 
+  useEffect(() => {
+    if (userName === "") {
+      navigate("/");
+    }
+  }, [userName]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -33,21 +52,22 @@ const Account: React.FC = () => {
     }
   }, [searchValue]);
 
+
   return (
     <Fragment>
       <AccountHeader />
       <div className={styles["main-container"]}>
         <input className={styles.search} placeholder="Type to search..."
           onChange={(e) => onSearchHandler(e)} />
-        <ContactsList filter={filter} />
+
+        <ContactsList filter={filter} onEditContactHandler={onContactEditHandler} />
+
         <div className={styles["bottom-bar"]}>
           <button type="button" onClick={() => onAddNewContactHandler()}>Add contact</button>
         </div>
       </div>
-      <Routes>
-        <Route path="/mycontacts/newcontact" element={<EditForm />} />
-        <Route path=":contactId" element={<EditForm />} />
-      </Routes>
+
+      {editFormVisible && <PopupEditForm info={editedContact} onCloseHandler={onEditFormCloseHandler} />}
     </Fragment>
   );
 };
