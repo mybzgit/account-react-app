@@ -1,58 +1,21 @@
 .container {
-  width: 50%;
-  top: 15%;
-  left: 25%;
-  position: absolute;
-  padding: 1rem;
-  border: 1px solid lightgray;
-  display: flex;
-  flex-direction: column;
-  row-gap: 0.5rem;
-  font-size: 1.5rem;
-}
-.container form {
-  display: flex;
-  flex-direction: column;
-  row-gap: 0.5rem;
-}
-.title {
-  font-size: 3rem;
-  border-bottom: 2px solid #008F54;
-  text-align: center;
-}
-.tip, .notfound {
-  color: gray;
-  text-align: center;
-}
-.notfound {
-  color: lightcoral;
-}
-.container label {
-  width: fit-content;
-}
-button.signin {
-  width: 70%;
-  height: 3rem;
-  font-size: 2rem;
-  margin: auto;
-}
-button.signin[disabled]{
-  background-color: lightgray;
-  border: none;
-}
-.container input {
-  font-size: 1.5rem;
-  height: 3rem;
-}
-
-.container {
-  border-radius: 0.5rem;
+    width: 50%;
+    top: 15%;
+    left: 25%;
+    position: absolute;
+    padding: 1rem;
+    border: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
 }
 
 @media (max-width: 600px) {
-  .container {
-    top: 5%;
-    left: 5%;
-    width: 85%;
-  }
+    .container {
+        top: 5%;
+        left: 5%;
+        width: 85%;
+    }
 }

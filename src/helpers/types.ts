@@ -4,21 +4,28 @@ export type User = {
     password: string;
 };
 
-export type Contact = {
+export class Contact {
     contactId: number;
     name: string;
     phone: string;
     userId: number;
+
+    constructor(name: string, phone: string, userId: number) {
+        this.contactId = Math.round(Math.random() * 10000);
+        this.name = name;
+        this.phone = phone;
+        this.userId = userId;
+    }
 }
 
 export type State = {
-    currentUserId: number | undefined;
-    currentUserName: string | undefined;
-    contacts: Contact[] | undefined;
+    currentUserId: number;
+    currentUserName: string;
+    currentUserContacts: Contact[];
 };
 
 export type Action = {
     type: string;
-    user?: { id: number, name: string, contacts: Contact[] };
-    contact?: Contact;
-}
+    userPayload?: { id: number; name: string; contacts: Contact[] };
+    contactPayload?: Contact;
+};

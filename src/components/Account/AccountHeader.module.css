@@ -1,0 +1,16 @@
+.header {
+    border-bottom: 2px solid lightgray;
+    padding: 1rem;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    column-gap: 0.5rem;
+}
+.header button {
+    height: 2rem;
+}
+.title {
+    width: 80%;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
