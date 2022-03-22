@@ -7,7 +7,7 @@ import { State, Contact } from '../../helpers/types';
 
 type ContactListProps = {
     filter?: string;
-    onEditContactHandler(contact: Contact): void;
+    onEditContactHandler: (contact: Contact) => void;
 };
 
 const ContactsList: React.FC<ContactListProps> = ({
