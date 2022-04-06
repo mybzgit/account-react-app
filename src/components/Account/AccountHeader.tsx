@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styles from './AccountHeader.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { Action, State } from '../../helpers/types';
@@ -6,7 +6,7 @@ import { Action, State } from '../../helpers/types';
 const AccountHeader: React.FC = () => {
     const dispatch = useDispatch();
 
-    const onSignOutHandler = () => {
+    const onSignOutHandler = useCallback(() => {
         const action: Action = {
             type: 'SET_CURRENT_USER',
             userPayload: {
@@ -16,7 +16,7 @@ const AccountHeader: React.FC = () => {
             },
         };
         dispatch(action);
-    };
+    }, []);
     const userName: string = useSelector<State, string>(
         (state) => state.currentUserName
     );
@@ -35,4 +35,4 @@ const AccountHeader: React.FC = () => {
     );
 };
 
-export default AccountHeader;
+export default React.memo(AccountHeader);

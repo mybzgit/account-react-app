@@ -2,6 +2,7 @@ import React, {
     ChangeEvent,
     ChangeEventHandler,
     Fragment,
+    useCallback,
     useEffect,
     useState,
 } from 'react';
@@ -29,16 +30,16 @@ const PopupEditForm: React.FC<EditFormProps> = ({
     );
     const isNew: boolean = !info.userId;
 
-    const onNameChangeHandler: ChangeEventHandler<HTMLInputElement> = (
+    const onNameChangeHandler: ChangeEventHandler<HTMLInputElement> = useCallback((
         e: ChangeEvent<HTMLInputElement>
     ) => {
         setContactName(e.target.value);
-    };
-    const onPhoneChangeHandler: ChangeEventHandler<HTMLInputElement> = (
+    }, []);
+    const onPhoneChangeHandler: ChangeEventHandler<HTMLInputElement> = useCallback((
         e: ChangeEvent<HTMLInputElement>
     ) => {
         setcontactPhone(e.target.value);
-    };
+    }, []);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -52,7 +53,7 @@ const PopupEditForm: React.FC<EditFormProps> = ({
         };
     }, [contactName, contactPhone]);
 
-    const onSaveHandler = () => {
+    const onSaveHandler = useCallback(() => {
         const contact = new Contact(contactName, contactPhone, userId);
         if (!isNew) {
             contact.contactId = info.contactId;
@@ -63,7 +64,7 @@ const PopupEditForm: React.FC<EditFormProps> = ({
         };
         dispatch(action);
         onCloseHandler();
-    };
+    }, [contactName, contactPhone, userId]);
 
     return (
         <Fragment>
@@ -106,4 +107,4 @@ const PopupEditForm: React.FC<EditFormProps> = ({
     );
 };
 
-export default PopupEditForm;
+export default React.memo(PopupEditForm);

@@ -3,6 +3,7 @@ import React, {
     ChangeEventHandler,
     FormEvent,
     FormEventHandler,
+    useCallback,
     useEffect,
     useState,
 } from 'react';
@@ -35,14 +36,14 @@ const LoginForm: React.FC = () => {
         };
     }, [username, password]);
 
-    const userNameChangeHandler: ChangeEventHandler<HTMLInputElement> = (
+    const userNameChangeHandler: ChangeEventHandler<HTMLInputElement> = useCallback((
         e: ChangeEvent<HTMLInputElement>
-    ) => setUserName(e.target.value);
-    const passwordChangeHandler: ChangeEventHandler<HTMLInputElement> = (
+    ) => setUserName(e.target.value), []);
+    const passwordChangeHandler: ChangeEventHandler<HTMLInputElement> = useCallback((
         e: ChangeEvent<HTMLInputElement>
-    ) => setPassword(e.target.value);
+    ) => setPassword(e.target.value), []);
 
-    const getContactsByUserId = async (id: string = '') => {
+    const getContactsByUserId = useCallback(async (id: string = '') => {
         const url: string = `${mainUrl}contacts?userId=${id}`;
 
         let contacts: Contact[] = [];
@@ -58,9 +59,9 @@ const LoginForm: React.FC = () => {
         }
 
         return contacts;
-    };
+    }, []);
 
-    const getExistedUser = async () => {
+    const getExistedUser = useCallback(async () => {
         const url: string = `${mainUrl}users?name${username}&password=${password}`;
 
         let users = await axios.get<User[]>(url);
@@ -74,7 +75,7 @@ const LoginForm: React.FC = () => {
                 id: 0,
                 name: '',
             };
-    };
+    }, [username, password, mainUrl]);
 
     const onSignInHandler: FormEventHandler<HTMLFormElement> = async (
         e: FormEvent<HTMLFormElement>

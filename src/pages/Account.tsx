@@ -2,6 +2,7 @@ import React, {
     ChangeEvent,
     ChangeEventHandler,
     Fragment,
+    useCallback,
     useEffect,
     useState,
 } from 'react';
@@ -43,23 +44,23 @@ const Account: React.FC = () => {
         };
     }, [searchValue]);
 
-    const onAddNewContactHandler = () => {
+    const onAddNewContactHandler = useCallback(() => {
         setEditedContact(new Contact('', '', 0));
         setEditFormVisible(true);
-    };
-    const onContactEditHandler = (contact: Contact) => {
+    }, []);
+    const onContactEditHandler = useCallback((contact: Contact) => {
         setEditedContact({ ...contact });
         setEditFormVisible(true);
-    };
-    const onEditFormCloseHandler = () => {
+    }, []);
+    const onEditFormCloseHandler = useCallback(() => {
         setEditFormVisible(false);
-    };
+    }, []);
 
-    const onSearchHandler: ChangeEventHandler<HTMLInputElement> = (
+    const onSearchHandler: ChangeEventHandler<HTMLInputElement> = useCallback((
         e: ChangeEvent<HTMLInputElement>
     ) => {
         setSearchValue(e.target.value);
-    };
+    }, []);
 
     return (
         <Fragment>

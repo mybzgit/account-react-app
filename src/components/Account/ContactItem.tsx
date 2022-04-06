@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styles from './ContactItem.module.css';
 import { useDispatch } from 'react-redux';
 import { Action, Contact } from '../../helpers/types';
@@ -14,13 +14,13 @@ const ContactItem: React.FC<ContactProps> = ({
 }: ContactProps) => {
     const dispatch = useDispatch();
 
-    const onDeleteHanlder = (info: Contact) => {
+    const onDeleteHanlder = useCallback((info: Contact) => {
         const action: Action = {
             type: 'DELETE_CONTACT',
             contactPayload: { ...info },
         };
         dispatch(action);
-    };
+    }, []);
 
     return (
         <div className={styles.contact}>
